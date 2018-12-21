@@ -1,0 +1,70 @@
+{%  extends 'base.html.twig' %}
+{%  block title %}Listado de personas{%  endblock title %}
+
+{%  block contenido %}
+
+<div class="container-fluid">
+  <div class="row content">
+  
+
+    <div>
+      <h1>Listado de Azurian</h1>
+
+      <hr>
+      <table class="table table-bordered">
+					<tr>
+						<th>RUT</th>
+						<th>Nombre</th>
+						<th>Edad</th>
+						<th>Cargo</th>	
+						<th>Opciones</th>
+					</tr>
+					<tr>
+
+                    <form action="almacenar" method="POST">
+
+						<td><input type="text" id="txtRUT" name="txtRUT" maxlength="30" required></td>
+						<td><input type="text" id="txtNombre" name="txtNombre" maxlength="100" required></td>
+						<td><input type="text" id="txtEdad" name="txtEdad" required></td>
+						<td>
+						    <select name="cboCargo" id="cboCargo" required>
+                                <option value="">Seleccionar: </option>
+                                {% for c in cargos %}
+                                	<option value="{{ c.getId() }}">{{ c.getDescripcion() }}</option>
+                                {% endfor %}
+                            </select>
+						</td>
+						<td><input type="submit" name="btnInsert" class="btn btn-primary"  value=Agregar>
+						</td>
+
+                    </form>
+					{% for p in personas %}
+					</tr>
+				  
+					<tr>
+						<td class="text-left"><strong>{{ p.getRut() }}</strong></td>
+						<td class="text-left">{{ p.getNombre() }}</td>
+						<td class="text-left">{{ p.getEdad() }}</td>
+						<td class="text-left">{{ p.getCargo().getDescripcion() }}<div class="btn-group btn-group-xs" role="group" aria-label="...">
+						</td>
+						<td>
+							<a class="btn btn-warning" href="editar?id={{ p.getId() }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true">Modificar</a>
+							<a class="btn btn-danger" href="eliminar?id={{ p.getId() }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar</a>
+						</td>
+					</tr>
+		{% endfor %}
+	  </table>
+		<h4>{{ mensaje }}</h4>
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+{%  endblock contenido %}
+
+
+
+
+
+
